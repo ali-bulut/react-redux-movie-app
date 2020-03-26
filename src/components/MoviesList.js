@@ -9,20 +9,24 @@ const MoviesList = props => {
 
     const moviesList=(
         <div>
-            Movies List
+            {
+                props.data.error.response ? <h3>Error retrieving data!</h3> : 'No Error'
+            }
         </div>
     )
   return(
     <div>
         {
-            props.movies.length === 0 ? emptyMessage : moviesList
+            props.data.length === 0 ? emptyMessage : moviesList
         }
     </div>
   );
 };
 
 MoviesList.propTypes={
-    movies:PropTypes.array.isRequired
+    data:PropTypes.shape({
+        movies:PropTypes.array.isRequired
+    }).isRequired
 }
 
 export default MoviesList;
