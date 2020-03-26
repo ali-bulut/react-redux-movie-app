@@ -2,6 +2,11 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import MoviesPage from './components/pages/MoviesPage';
+
+import {Link, Route} from 'react-router-dom';
+
+
 class App extends React.Component {
   render() {
     return (
@@ -11,14 +16,10 @@ class App extends React.Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <Link to="/movies">Movies</Link>
+          
+          {/* /movies path'ine gittiğinde MoviesPage componentinin gözükmesi için bu şekilde yazdık. */}
+          <Route path="/movies" component={MoviesPage}></Route>
         </header>
       </div>
     );
