@@ -2,6 +2,7 @@ import React from "react";
 import {PropTypes} from 'prop-types';
 
 import {Grid} from 'semantic-ui-react'
+import {HashLoader} from 'react-spinners'
 
 import MovieCard from './MovieCard'
 
@@ -12,6 +13,8 @@ const MoviesList = props => {
 
     const moviesList=(
         <div>
+            <HashLoader color={'#36bdb3'} size={40} loading={props.data.fetching}/>
+
             {
                 props.data.error.response ? <h3>Error retrieving data!</h3> 
                 :
