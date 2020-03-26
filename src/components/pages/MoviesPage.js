@@ -19,7 +19,7 @@ class MoviesPage extends Component {
     render() {
         return (
             <div>
-                <h2>Movies Page</h2>
+                <h2>Movies</h2>
                 {/* Direkt MoviesList componenti içinde redux connect ile de alabilirdik. 
                 Fakat bu bileşende prop drilling ile yaptık.
                 Birden fazla yerde kullanacağınız bir bileşen ise redux connect ile  yapmak daha doğru olacaktır. */}
