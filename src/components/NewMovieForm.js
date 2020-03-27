@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form, Image } from "semantic-ui-react";
+import {Redirect} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Button, Form, Image, Message, MessageHeader } from "semantic-ui-react";
 
 import InlineError from './InlineError';
 
@@ -8,6 +10,10 @@ class NewMovieForm extends Component {
         title:'',
         cover:'',
         errors:{}
+    }
+
+    static propTypes={
+        onNewMovieSubmit:PropTypes.func.isRequired
     }
 
     handleChange = (e) => {
@@ -21,6 +27,11 @@ class NewMovieForm extends Component {
         this.setState({
             errors:errors
         });
+        
+        //errors objesinde herhangi bir kayıt yoksa anlamına gelir
+        if(Object.keys(errors).length === 0){
+            this.props.onNewMovieSubmit(this.state);
+        }
     }
 
     validate = () => {
@@ -35,10 +46,8 @@ class NewMovieForm extends Component {
 
   render() {
       const errors=this.state.errors;
-    return (
-      <div>
-          <h2>New Movie</h2>
-        <Form onSubmit={this.onSubmit}>
+      const form=(
+        <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching}>
             {/* !! -> string ifadeyi boolean'a çevirir. */}
           <Form.Field error={!!errors.title}>
             <label>Title</label>
@@ -54,7 +63,21 @@ class NewMovieForm extends Component {
               <Image src={this.state.cover} size="small"/>
           </Form.Field>
           <Button type="submit">Submit</Button>
+
+          {
+              !this.props.newMovie.error.response ? null : 
+              <Message negative>
+                  <MessageHeader>We're Sorry!</MessageHeader>
+                  <p>A problem occured while recording a new movie!</p>
+              </Message>
+          }
         </Form>
+      )
+    return (
+      <div>
+        {
+            this.props.newMovie.done ? <Redirect to="/movies" /> : form
+        }
       </div>
     );
   }
