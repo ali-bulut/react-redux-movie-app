@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 
-import {fetchMovies} from '../../actions/movies';
+import {fetchMovies, deleteMovie} from '../../actions/movies';
 
 import MoviesList from '../MoviesList';
 
 class MoviesPage extends Component {
     static propTypes={
-        data:PropTypes.object.isRequired
+        data:PropTypes.object.isRequired,
+        deleteMovie:PropTypes.func.isRequired
     }
 
     componentDidMount() {
@@ -23,7 +24,7 @@ class MoviesPage extends Component {
                 {/* Direkt MoviesList componenti içinde redux connect ile de alabilirdik. 
                 Fakat bu bileşende prop drilling ile yaptık.
                 Birden fazla yerde kullanacağınız bir bileşen ise redux connect ile  yapmak daha doğru olacaktır. */}
-                <MoviesList data={this.props.data}/>
+                <MoviesList data={this.props.data} deleteMovie={this.props.deleteMovie}/>
             </div>
         )
     }
@@ -38,7 +39,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    fetchMovies:fetchMovies
+    fetchMovies:fetchMovies,
+    deleteMovie:deleteMovie
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MoviesPage);

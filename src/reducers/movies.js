@@ -1,4 +1,7 @@
-import {FETCH_MOVIES_FULFILLED, FETCH_MOVIES_REJECTED, FETCH_MOVIES_PENDING} from '../actions/movies';
+import {
+    FETCH_MOVIES_FULFILLED, FETCH_MOVIES_REJECTED, FETCH_MOVIES_PENDING,
+    DELETE_MOVIE_FULFILLED, DELETE_MOVIE_REJECTED, DELETE_MOVIE_PENDING
+} from '../actions/movies';
 
 const initalState={
     fetching:false,
@@ -26,6 +29,23 @@ export default (state=initalState, action) => {
                 error:action.payload,
                 fetching:false
             }
+
+        // to delete
+
+            case DELETE_MOVIE_PENDING:
+                return {
+                    ...state
+                }
+            case DELETE_MOVIE_FULFILLED:
+                return {
+                    ...state,
+                    movies:state.movies.filter(movie => movie._id !== action.payload._id)
+                }
+            case DELETE_MOVIE_REJECTED:
+                return {
+                    ...state,
+                    error:action.payload
+                }
         default:
             return state;
     }

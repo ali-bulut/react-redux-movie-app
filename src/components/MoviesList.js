@@ -19,7 +19,7 @@ const MoviesList = props => {
                 props.data.error.response ? <h3>Error retrieving data!</h3> 
                 :
                 <Grid stackable columns={3}> 
-                {props.data.movies.map(movie => <MovieCard key={movie._id} movie={movie}/>)}
+                {props.data.movies.map(movie => <MovieCard key={movie._id} deleteMovie={props.deleteMovie} movie={movie}/>)}
                 </Grid>
             }
         </div>
