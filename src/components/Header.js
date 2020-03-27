@@ -39,7 +39,7 @@ class Header extends React.Component {
               <Menu.Item as={NavLink} exact to="/movies">
                 Movies
               </Menu.Item>
-              <Menu.Item as={NavLink} exact to="/movies/new">
+              <Menu.Item as={NavLink} exact to="/movie/new">
                 Add New Movie
               </Menu.Item>
             </Container>

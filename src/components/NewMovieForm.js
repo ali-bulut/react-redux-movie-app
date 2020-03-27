@@ -7,14 +7,26 @@ import InlineError from './InlineError';
 
 class NewMovieForm extends Component {
     state={
-        title:'',
-        cover:'',
-        errors:{}
+        _id:this.props.editMovie ? this.props.editMovie._id : '',
+        title:this.props.editMovie ? this.props.editMovie.title : '',
+        cover:this.props.editMovie ? this.props.editMovie.cover : '',
+        errors:{},
+        redirect:false
     }
 
     static propTypes={
         onNewMovieSubmit:PropTypes.func.isRequired
     }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      if(nextProps.newMovie.editMovie.title && nextProps.newMovie.title !== this.state.title){
+        this.setState({
+          title:nextProps.newMovie.editMovie.title,
+          cover:nextProps.newMovie.editMovie.cover
+        });
+      }
+    }
+    
 
     handleChange = (e) => {
         this.setState({
@@ -25,12 +37,18 @@ class NewMovieForm extends Component {
     onSubmit = () => {
         const errors=this.validate();
         this.setState({
-            errors:errors
+            errors:errors,
+            redirect:true
         });
-        
+
+        const _id=this.state._id || this.props.newMovie.editMovie._id;
+
         //errors objesinde herhangi bir kayıt yoksa anlamına gelir
         if(Object.keys(errors).length === 0){
-            this.props.onNewMovieSubmit(this.state);
+            if(!_id)
+              this.props.onNewMovieSubmit(this.state);
+            else
+              this.props.onUpdateMovieSubmit({...this.state, _id});
         }
     }
 
@@ -47,7 +65,7 @@ class NewMovieForm extends Component {
   render() {
       const errors=this.state.errors;
       const form=(
-        <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching}>
+        <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching || this.props.newMovie.editMovie.fetching}>
             {/* !! -> string ifadeyi boolean'a çevirir. */}
           <Form.Field error={!!errors.title}>
             <label>Title</label>
@@ -76,7 +94,7 @@ class NewMovieForm extends Component {
     return (
       <div>
         {
-            this.props.newMovie.done ? <Redirect to="/movies" /> : form
+            this.props.newMovie.done && this.state.redirect ? <Redirect to="/movies" /> : form
         }
       </div>
     );

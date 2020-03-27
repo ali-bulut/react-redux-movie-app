@@ -26,7 +26,8 @@ class App extends React.Component {
 
           {/* /movies path'ine gittiğinde MoviesPage componentinin gözükmesi için bu şekilde yazdık. */}
           <Route path="/movies" exact component={MoviesPage}></Route>
-          <Route path="/movies/new" exact component={NewMoviePage}></Route>
+          <Route path="/movie/new" exact component={NewMoviePage}></Route>
+          <Route path="/movies/:id" exact component={NewMoviePage}></Route>
 
         </Container>
 
