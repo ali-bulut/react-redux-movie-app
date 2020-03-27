@@ -5,6 +5,7 @@ import {Route} from 'react-router-dom';
 
 //Components
 import MoviesPage from './components/pages/MoviesPage';
+import HomePage from './components/pages/HomePage';
 import NewMoviePage from './components/pages/NewMoviePage';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -25,6 +26,7 @@ class App extends React.Component {
         <Container text>
 
           {/* /movies path'ine gittiğinde MoviesPage componentinin gözükmesi için bu şekilde yazdık. */}
+          <Route path="/" exact component={HomePage}></Route>
           <Route path="/movies" exact component={MoviesPage}></Route>
           <Route path="/movie/new" exact component={NewMoviePage}></Route>
           <Route path="/movies/:id" exact component={NewMoviePage}></Route>
