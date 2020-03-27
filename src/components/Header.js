@@ -1,7 +1,7 @@
 import React from "react";
 import { menuStyle, fixedMenuStyle } from "../helpers/styleHelper";
 import { Container, Image, Menu, Visibility } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 class Header extends React.Component {
   state = {
@@ -28,18 +28,20 @@ class Header extends React.Component {
             style={menuFixed ? fixedMenuStyle : menuStyle}
           >
             <Container text>
-              <Menu.Item as={Link} to="/">
+              <Menu.Item>
                 <Image
                   size="mini"
                   src="https://react.semantic-ui.com/logo.png"
 
                 />
               </Menu.Item>
-              <Menu.Item header as={Link} to="/">Ali BULUT</Menu.Item>
-              <Menu.Item as={Link} to="/movies">
+              <Menu.Item header as={Link} to="/" exact="true">MOVIE APP</Menu.Item>
+              <Menu.Item as={NavLink} exact to="/movies">
                 Movies
               </Menu.Item>
-              <Menu.Item as="a">Add New Movie</Menu.Item>
+              <Menu.Item as={NavLink} exact to="/movies/new">
+                Add New Movie
+              </Menu.Item>
             </Container>
           </Menu>
         </Visibility>
